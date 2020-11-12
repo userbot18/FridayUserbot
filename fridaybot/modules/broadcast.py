@@ -63,7 +63,14 @@ async def _(event):
     if hmm and hmm.media:
         ok = await borg.download_media(hmm.media, sedpath)
         for channelz in all_chnnl:
-            await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
+            try:
+                total_count += 1
+                await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
+            except Exception as e:
+                try:
+                    logger.info(f"Error : {error_count}\nError : {e} \nUsers : {chat_id}")
+                except:
+                    pass
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
