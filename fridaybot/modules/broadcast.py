@@ -103,24 +103,24 @@ async def _(event):
                 total_count += 1
             except Exception as e:
                 total_errors += 1
-                errorno += f"{e}"
-                await borg.send_message(
-                    loggy_grp,
-                    f"Error : {total_errors}\nError : {errorno}",
+                errorno += f"{e} \n"
+            await borg.send_message(
+                loggy_grp,
+                f"Error : {total_errors}\nError : {errorno}",
                 )
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
         for channelz in all_chnnl:
             try:
-                await borg.send_message(channelz.chat_id, hmm.text)
+                await borg.send_message(int(channelz.chat_id), hmm.text)
                 total_count += 1
             except Exception as e:
                 total_errors += 1
-                errorno += f"{e}"
-                await borg.send_message(
-                    loggy_grp,
-                    f"Error : {total_errors}\nError : {errorno}",
+                errorno += f"{e} \n"
+           await borg.send_message(
+                loggy_grp,
+                f"Error : {total_errors}\nError : {errorno}",
                 )
     elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
