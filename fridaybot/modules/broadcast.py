@@ -1,8 +1,13 @@
-from fridaybot.modules.sql_helper.broadcast_sql import add_chnnl_in_db, get_all_chnnl, already_added, rm_channel
-from telethon.utils import pack_bot_file_id
-import asyncio
 import io
-import re
+
+from telethon.utils import pack_bot_file_id
+
+from fridaybot.modules.sql_helper.broadcast_sql import (
+    already_added,
+    get_all_chnnl,
+    rm_channel,
+)
+
 
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
@@ -40,7 +45,9 @@ async def _(event):
         rm_channel(input_chnnl)
         await event.edit(f"Fine. I have Removed {input_chnnl} From DataBase.")
     elif not already_added(input_chnnl):
-        await event.edit("Are You Sure? , You Haven't Added This Group / Channel To Database")
+        await event.edit(
+            "Are You Sure? , You Haven't Added This Group / Channel To Database"
+        )
 
 
 @friday.on(friday_on_cmd(pattern="broadcast"))
@@ -59,17 +66,21 @@ async def _(event):
         event.edit("Reply To Some Message.")
         return
     if hmm and hmm.media:
-        sedstark = await borg.download_media(hmm.media, sedpath)
+        await borg.download_media(hmm.media, sedpath)
         for channelz in all_chnnl:
             bot_api_file_id = pack_bot_file_id(hmm.media)
-            await borg.send_file(int(channelz.chat_id), file=bot_api_file_id, caption=event.text)
+            await borg.send_file(
+                int(channelz.chat_id), file=bot_api_file_id, caption=event.text
+            )
     elif hmm and hmm.text:
         for channelz in all_chnnl:
             await borg.send_message(int(channelz.chat_id), hmm.text)
     elif hmm.message.poll or hmm:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
-    await event.edit(f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}")
+    await event.edit(
+        f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}"
+    )
 
 
 @friday.on(friday_on_cmd(pattern="forward"))
@@ -88,7 +99,10 @@ async def _(event):
         return
     for forbard in all_chnnl:
         await hmm.forward_to(int(forbard.chat_id))
-    await event.edit(f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}")
+    await event.edit(
+        f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
+    )
+
 
 @friday.on(friday_on_cmd(pattern="bstat"))
 async def _(event):
