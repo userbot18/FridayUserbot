@@ -118,7 +118,7 @@ async def _(event):
             except Exception as e:
                 total_errors += 1
                 errorno += f"{e} \n"
-           await borg.send_message(
+            await borg.send_message(
                 loggy_grp,
                 f"Error : {total_errors}\nError : {errorno}",
                 )
