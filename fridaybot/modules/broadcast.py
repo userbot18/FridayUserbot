@@ -62,6 +62,7 @@ async def _(event):
 
 @friday.on(friday_on_cmd(pattern="broadcast"))
 async def _(event):
+    await event.edit("**Fine. Broadcasting in Progress. Kindly Wait !**")
     sedpath = Config.TMP_DOWNLOAD_DIRECTORY
     all_chnnl = get_all_chnnl()
     if len(all_chnnl) == 0:
@@ -93,7 +94,7 @@ async def _(event):
             os.remove(ok)
     elif hmm and hmm.text:
         for channelz in all_chnnl:
-            await borg.send_message(int(channelz.chat_id), hmm.text)
+            await borg.send_message(channelz.chat_id, hmm.text)
     elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
@@ -118,7 +119,8 @@ async def _(event):
         return
     try:
         for forbard in all_chnnl:
-            await hmm.forward_to(int(forbard.chat_id))
+            await hmm.forward_to(forbard.chat_id)
+            total_count += 1
     except Exception as e:
         total_errors += 1
         try:
@@ -137,7 +139,7 @@ async def _(event):
     for starked in total_chnnl:
         try:
             chnnl_list += ("==> {} \n").format(starked.chat_id)
-        except Exception:
+        except Exception as e:
             pass
     with io.BytesIO(str.encode(chnnl_list)) as tedt_file:
         tedt_file.name = "dbchnnllist.txt"
