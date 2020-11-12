@@ -122,10 +122,9 @@ async def _(event):
     except Exception as e:
         total_errors += 1
         try:
-           logger.info(
-           f"Error : {error_count}\nError : {e} \nUsers : {chat_id}")
+            logger.info(f"Error : {error_count}\nError : {e} \nUsers : {chat_id}")
         except:
-           pass
+            pass
     await event.edit(
         f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
     )
