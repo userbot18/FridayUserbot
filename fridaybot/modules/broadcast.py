@@ -79,8 +79,8 @@ async def _(event):
         ok = await borg.download_media(hmm.media, sedpath)
         for channelz in all_chnnl:
             try:
-                total_count += 1
                 await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
+                total_count += 1
             except Exception as e:
                 total_errors += 1
                 try:
