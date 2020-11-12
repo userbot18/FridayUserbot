@@ -31,7 +31,7 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
     if input_chnnl == "all":
-        async for dialog in client.iter_dialogs():
+        async for dialog in borg.iter_dialogs():
             if dialog.is_channel:
                 for addnub in dialog:
                     if already_added(addnub.id):
