@@ -31,17 +31,19 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
     sed = 0
+    oks = 0
     if input_chnnl == "all":
         dialogs = await bot.get_dialogs(limit=None, ignore_migrated=True)
         for d in dialogs:
             if d.is_channel:
                 if d.entity.broadcast:
                     if already_added(d.id):
+                        oks += 1
                         pass
                     else:
-                        sed += 1
                         add_chnnl_in_db(d.id)
-                await event.edit(f"Process Completed. Added {sed} Channel To List")
+                        sed += 1
+                await event.edit(f"Process Completed. Added {sed} Channel To List. Failed {oks}")
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
