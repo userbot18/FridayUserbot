@@ -35,14 +35,15 @@ async def _(event):
     if input_chnnl == "all":
         async for d in borg.iter_dialogs(limit=None):
             entity = d.entity
-            if d.is_channel:
-                if entity.creator or entity.admin_rights:
-                    if already_added(d.id):
-                        oks += 1
-                    else:
-                        add_chnnl_in_db(d.id)
-                        sed += 1
-                await event.edit(
+            if isinstance(entity, Channel):
+                if entity.broadcast:
+                    if entity.creator or entity.admin_rights:
+                        if already_added(d.id):
+                            oks += 1
+                        else:
+                            add_chnnl_in_db(d.id)
+                            sed += 1
+                    await event.edit(
                     f"Process Completed. Added {sed} Channel To List. Failed {oks}"
                 )
     elif input_chnnl == "":
