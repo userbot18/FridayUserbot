@@ -41,7 +41,7 @@ async def _(event):
         for i in addall:
             try:
                 if i.broadcast:
-                    elif i.creator or i.admin_rights:
+                    if i.creator or i.admin_rights:
                         if already_added(i):
                             oks += 1
                         else:
