@@ -1,7 +1,5 @@
 import io
 
-from telethon.utils import pack_bot_file_id
-
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     add_chnnl_in_db,
@@ -15,7 +13,7 @@ from fridaybot.utils import friday_on_cmd
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
-    if input_chnnl == '':
+    if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
@@ -65,9 +63,7 @@ async def _(event):
     if hmm and hmm.media:
         ok = await borg.download_media(hmm.media, sedpath)
         for channelz in all_chnnl:
-            await borg.send_file(
-                int(channelz.chat_id), file=ok, caption=hmm.text
-            )
+            await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
