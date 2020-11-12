@@ -7,6 +7,7 @@ from fridaybot.modules.sql_helper.broadcast_sql import (
     already_added,
     get_all_chnnl,
     rm_channel,
+    add_chnnl_in_db,
 )
 from fridaybot.utils import friday_on_cmd
 
@@ -24,7 +25,7 @@ async def _(event):
         await event.edit("This Channel Already Found in Database.")
         return
     elif not already_added(input_chnnl):
-        add_usersid_in_db(input_chnnl)
+        add_chnnl_in_db(input_chnnl)
         await event.edit(f"Fine. I have Added {input_chnnl} To DataBase.")
 
 
