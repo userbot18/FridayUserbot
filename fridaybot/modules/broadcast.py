@@ -40,11 +40,13 @@ async def _(event):
         ]
         for i in addall:
             try:
-                if already_added(i):
-                    oks += 1
-                else:
-                    add_chnnl_in_db(i)
-                    sed += 1
+                if i.broadcast:
+                    elif i.creator or i.admin_rights:
+                        if already_added(i):
+                            oks += 1
+                        else:
+                            add_chnnl_in_db(i)
+                            sed += 1
             except BaseException:
                 pass
 
