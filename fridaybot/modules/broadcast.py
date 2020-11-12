@@ -33,18 +33,17 @@ async def _(event):
     sed = 0
     oks = 0
     if input_chnnl == "all":
-        dialogs = await bot.get_dialogs(limit=None, ignore_migrated=True)
-        for d in dialogs:
+        async for d in borg.iter_dialogs(limit=None):
+            entity = d.entity
             if d.is_channel:
-                if d.entity.broadcast:
+                if entity.broadcast:
                     if already_added(d.id):
                         oks += 1
                     else:
-                        add_chnnl_in_db(d.id)
-                        sed += 1
+                         add_chnnl_in_db(d.id)
+                         sed += 1
                 await event.edit(
-                    f"Process Completed. Added {sed} Channel To List. Failed {oks}"
-                )
+                f"Process Completed. Added {sed} Channel To List. Failed {oks}")
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
