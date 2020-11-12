@@ -14,6 +14,7 @@
 
 import io
 import os
+
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     add_chnnl_in_db,
@@ -24,6 +25,8 @@ from fridaybot.modules.sql_helper.broadcast_sql import (
 from fridaybot.utils import friday_on_cmd
 
 loggy_grp = Config.PRIVATE_GROUP_ID
+
+
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
@@ -91,8 +94,11 @@ async def _(event):
                 total_count += 1
             except Exception as e:
                 total_errors += 1
-                errorno =+ f"{e}"
-                borg.send_message(loggy_grp, f"Error : {error_count}\nError : {errorno} \nUsers : {chat_id}")
+                errorno = +f"{e}"
+                borg.send_message(
+                    loggy_grp,
+                    f"Error : {error_count}\nError : {errorno} \nUsers : {chat_id}",
+                )
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
@@ -106,7 +112,7 @@ async def _(event):
     )
     await borg.send_message(
         loggy_grp,
-        f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}"
+        f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}",
     )
 
 
@@ -139,7 +145,7 @@ async def _(event):
     )
     await borg.send_message(
         loggy_grp,
-        f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
+        f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}",
     )
 
 
