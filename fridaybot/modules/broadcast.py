@@ -1,11 +1,14 @@
 import io
+
 from telethon.utils import pack_bot_file_id
+
+from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     already_added,
     get_all_chnnl,
     rm_channel,
 )
-from fridaybot.Configs import Config
+
 
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
