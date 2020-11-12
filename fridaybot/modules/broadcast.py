@@ -39,11 +39,12 @@ async def _(event):
                 if d.entity.broadcast:
                     if already_added(d.id):
                         oks += 1
-                        pass
                     else:
                         add_chnnl_in_db(d.id)
                         sed += 1
-                await event.edit(f"Process Completed. Added {sed} Channel To List. Failed {oks}")
+                await event.edit(
+                    f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+                )
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
