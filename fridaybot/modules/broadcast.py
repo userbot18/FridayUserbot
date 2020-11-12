@@ -33,11 +33,11 @@ async def _(event):
     if input_chnnl == "all":
         async for dialog in borg.iter_dialogs():
             if dialog.is_channel:
-                for addnub in dialog:
-                    if already_added(addnub.id):
+                for addnub in dialog.id:
+                    if already_added(addnub):
                         pass
                     else:
-                        add_chnnl_in_db(addnub.id)
+                        add_chnnl_in_db(addnub)
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
