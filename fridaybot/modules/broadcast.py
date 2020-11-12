@@ -32,9 +32,7 @@ async def _(event):
     input_chnnl = event.pattern_match.group(1)
     if input_chnnl == "all":
         sedbruh = [
-            d.entity.id
-            for d in await event.client.get_dialogs()
-            if (d.is_channel)
+            d.entity.id for d in await event.client.get_dialogs() if (d.is_channel)
         ]
         for addnub in sedbruh:
             if already_added(addnub):
