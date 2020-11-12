@@ -31,13 +31,12 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
     if input_chnnl == "all":
-        async for dialog in borg.iter_dialogs():
-            if dialog.is_channel:
-                for addnub in dialog():
-                    if already_added(addnub.id):
-                        pass
-                    else:
-                        add_chnnl_in_db(addnub.id)
+        dialogs = await bot.get_dialogs(limit=None, ignore_migrated=True)
+        for d in dialogs:
+            if already_added(d.id):
+                pass
+            else:
+                add_chnnl_in_db(d.id)
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
