@@ -1,3 +1,17 @@
+#    Copyright (C) Midhun KM 2020
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 import io
 import os
 
@@ -102,8 +116,16 @@ async def _(event):
     else:
         event.edit("Reply To Some Message.")
         return
-    for forbard in all_chnnl:
-        await hmm.forward_to(int(forbard.chat_id))
+    try:
+        for forbard in all_chnnl:
+            await hmm.forward_to(int(forbard.chat_id))
+    except Exception as e:
+        total_errors += 1
+        try:
+           logger.info(
+           f"Error : {error_count}\nError : {e} \nUsers : {chat_id}")
+        except:
+           pass
     await event.edit(
         f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
     )
