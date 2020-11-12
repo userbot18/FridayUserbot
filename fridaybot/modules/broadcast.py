@@ -39,8 +39,8 @@ async def _(event):
                         pass
                     else:
                         add_chnnl_in_db(d.id)
-        await event.edit("Process Completed. Added All Channel To List")
-        return
+                await event.edit("Process Completed. Added All Channel To List")
+                return
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
@@ -64,6 +64,7 @@ async def _(event):
         for channelz in all_chnnl:
             rm_channel(channelz.chat_id)
         await event.edit("Fine. Cleared Channel Database")
+        return
     if input_chnnl is "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
