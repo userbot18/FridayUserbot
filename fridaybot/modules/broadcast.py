@@ -68,7 +68,9 @@ async def _(event):
                 await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
             except Exception as e:
                 try:
-                    logger.info(f"Error : {error_count}\nError : {e} \nUsers : {chat_id}")
+                    logger.info(
+                        f"Error : {error_count}\nError : {e} \nUsers : {chat_id}"
+                    )
                 except:
                     pass
         if os.path.exists(ok):
