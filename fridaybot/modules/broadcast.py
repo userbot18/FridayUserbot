@@ -68,6 +68,7 @@ async def _(event):
                 total_count += 1
                 await borg.send_file(int(channelz.chat_id), file=ok, caption=hmm.text)
             except Exception as e:
+                total_errors += 1
                 try:
                     logger.info(
                         f"Error : {error_count}\nError : {e} \nUsers : {chat_id}"
