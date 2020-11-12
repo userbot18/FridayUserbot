@@ -107,7 +107,7 @@ async def _(event):
             await borg.send_message(
                 loggy_grp,
                 f"Error : {total_errors}\nError : {errorno}",
-                )
+            )
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
@@ -121,7 +121,7 @@ async def _(event):
             await borg.send_message(
                 loggy_grp,
                 f"Error : {total_errors}\nError : {errorno}",
-                )
+            )
     elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
