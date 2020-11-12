@@ -137,7 +137,7 @@ async def _(event):
     for starked in total_chnnl:
         try:
             chnnl_list += ("==> {} \n").format(starked.chat_id)
-        except Exception as e:
+        except Exception:
             pass
     with io.BytesIO(str.encode(chnnl_list)) as tedt_file:
         tedt_file.name = "dbchnnllist.txt"
