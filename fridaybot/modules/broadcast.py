@@ -14,7 +14,7 @@
 
 import io
 import os
-
+from telethon.tl.types import Channel, Chat, User
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     add_chnnl_in_db,
