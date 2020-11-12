@@ -15,7 +15,7 @@ from fridaybot.utils import friday_on_cmd
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
-    if input_chnnl is None:
+    if input_chnnl == '':
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
@@ -63,16 +63,17 @@ async def _(event):
         event.edit("Reply To Some Message.")
         return
     if hmm and hmm.media:
-        await borg.download_media(hmm.media, sedpath)
+        ok = await borg.download_media(hmm.media, sedpath)
         for channelz in all_chnnl:
-            bot_api_file_id = pack_bot_file_id(hmm.media)
             await borg.send_file(
-                int(channelz.chat_id), file=bot_api_file_id, caption=event.text
+                int(channelz.chat_id), file=ok, caption=hmm.text
             )
+        if os.path.exists(ok):
+            os.remove(ok)
     elif hmm and hmm.text:
         for channelz in all_chnnl:
             await borg.send_message(int(channelz.chat_id), hmm.text)
-    elif hmm.message.poll or hmm:
+    elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
     await event.edit(
