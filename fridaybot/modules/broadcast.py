@@ -20,9 +20,6 @@ async def _(event):
         else:
             await event.edit("Please Give Group / Channel ID")
             return
-    if not input_chnnl.isdigit():
-        await event.reply("Channel / Group Id Should Be Integer Not Username Or Name")
-        return
     if already_added(input_chnnl):
         await event.edit("This Channel Already Found in Database.")
         return
@@ -40,9 +37,6 @@ async def _(event):
         else:
             await event.edit("Please Give Group / Channel ID")
             return
-    if not input_chnnl.isdigit():
-        await event.reply("Channel / Group Id Should Be Integer Not Username Or Name")
-        return
     if already_added(input_chnnl):
         rm_channel(input_chnnl)
         await event.edit(f"Fine. I have Removed {input_chnnl} From DataBase.")
