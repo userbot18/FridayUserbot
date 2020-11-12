@@ -33,10 +33,14 @@ async def _(event):
     if input_chnnl == "all":
         dialogs = await bot.get_dialogs(limit=None, ignore_migrated=True)
         for d in dialogs:
-            if already_added(d.id):
-                pass
-            else:
-                add_chnnl_in_db(d.id)
+            if d.is_channel:
+                if d.entity.broadcast:
+                    if already_added(d.id):
+                        pass
+                    else:
+                        add_chnnl_in_db(d.id)
+        await event.edit("Process Completed. Added All Channel To List")
+        return
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
@@ -59,7 +63,7 @@ async def _(event):
     if input_chnnl == "all":
         for channelz in all_chnnl:
             rm_channel(channelz.chat_id)
-            await event.edit("Fine. Cleared Channel Database")
+        await event.edit("Fine. Cleared Channel Database")
     if input_chnnl is "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
