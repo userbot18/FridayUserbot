@@ -43,8 +43,8 @@ async def _(event):
                         add_chnnl_in_db(d.id)
                         sed += 1
                 await event.edit(
-                        f"Process Completed. Added {sed} Channel To List. Failed {oks}"
-                    )
+                    f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+                )
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
