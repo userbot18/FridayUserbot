@@ -30,6 +30,7 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
+    sed = 0
     if input_chnnl == "all":
         dialogs = await bot.get_dialogs(limit=None, ignore_migrated=True)
         for d in dialogs:
@@ -38,16 +39,16 @@ async def _(event):
                     if already_added(d.id):
                         pass
                     else:
+                        sed += 1
                         add_chnnl_in_db(d.id)
-                await event.edit("Process Completed. Added All Channel To List")
-                return
-    if input_chnnl == "":
+                await event.edit(f"Process Completed. Added {sed} Channel To List")
+    elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
             await event.edit("Please Give Group / Channel ID")
             return
-    if already_added(input_chnnl):
+    elif already_added(input_chnnl):
         await event.edit("This Channel Already Found in Database.")
         return
     elif not already_added(input_chnnl):
