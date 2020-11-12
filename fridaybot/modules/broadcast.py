@@ -31,14 +31,13 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
     if input_chnnl == "all":
-        sedbruh = [
-            d.entity.id for d in await event.client.get_dialogs() if (d.is_channel)
-        ]
-        for addnub in sedbruh:
-            if already_added(addnub):
-                pass
-            else:
-                add_chnnl_in_db(addnub)
+        async for dialog in client.iter_dialogs():
+            if dialog.is_channel:
+                for addnub in dialog:
+                    if already_added(addnub.id):
+                        pass
+                    else:
+                        add_chnnl_in_db(addnub.id)
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
