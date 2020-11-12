@@ -30,7 +30,7 @@ async def _(event):
 @friday.on(friday_on_cmd(pattern="brm ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
-    if input_chnnl is '':
+    if input_chnnl is "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
