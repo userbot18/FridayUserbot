@@ -34,25 +34,19 @@ async def _(event):
     oks = 0
     if input_chnnl == "all":
         addall = [
-            d.entity.id
-            for d in await event.client.get_dialogs()
-            if (d.is_group or d.is_channel)
-        ]
-        sed = [
             d.entity
             for d in await event.client.get_dialogs()
             if (d.is_group or d.is_channel)
         ]
         for i in addall:
             try:
-                for kek in sed:
-                    if sed.broadcast:
-                        if sed.creator or sed.admin_rights:
-                            if already_added(i):
-                                oks += 1
-                            else:
-                                add_chnnl_in_db(i)
-                                sed += 1
+                if i.broadcast:
+                    if i.creator or i.admin_rights:
+                        if already_added(i.id):
+                            oks += 1
+                        else:
+                            add_chnnl_in_db(i.id)
+                            sed += 1
             except BaseException:
                 pass
 
