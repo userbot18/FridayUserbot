@@ -4,10 +4,10 @@ from telethon.utils import pack_bot_file_id
 
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
+    add_chnnl_in_db,
     already_added,
     get_all_chnnl,
     rm_channel,
-    add_chnnl_in_db,
 )
 from fridaybot.utils import friday_on_cmd
 
