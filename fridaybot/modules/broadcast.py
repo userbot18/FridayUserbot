@@ -14,7 +14,6 @@
 
 import io
 import os
-
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     add_chnnl_in_db,
@@ -24,7 +23,7 @@ from fridaybot.modules.sql_helper.broadcast_sql import (
 )
 from fridaybot.utils import friday_on_cmd
 
-
+loggy_grp = Config.PRIVATE_GROUP_ID
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
@@ -40,11 +39,17 @@ async def _(event):
     elif not already_added(input_chnnl):
         add_chnnl_in_db(input_chnnl)
         await event.edit(f"Fine. I have Added {input_chnnl} To DataBase.")
+        await borg.send_message(loggy_grp, f"Added {input_chnnl} To DB")
 
 
 @friday.on(friday_on_cmd(pattern="brm ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
+    all_chnnl = get_all_chnnl()
+    if input_chnnl == "all":
+        for channelz in all_chnnl:
+            rm_channel(channelz.chat_id)
+            await event.edit("Fine. Cleared Channel Database")
     if input_chnnl is "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
@@ -54,6 +59,7 @@ async def _(event):
     if already_added(input_chnnl):
         rm_channel(input_chnnl)
         await event.edit(f"Fine. I have Removed {input_chnnl} From DataBase.")
+        await borg.send_message(loggy_grp, f"Removed {input_chnnl} From DB")
     elif not already_added(input_chnnl):
         await event.edit(
             "Are You Sure? , You Haven't Added This Group / Channel To Database"
@@ -70,6 +76,7 @@ async def _(event):
         return
     total_errors = 0
     total_count = 0
+    errorno = ""
     total_chnnl = len(all_chnnl)
     if event.reply_to_msg_id:
         hmm = await event.get_reply_message()
@@ -84,12 +91,8 @@ async def _(event):
                 total_count += 1
             except Exception as e:
                 total_errors += 1
-                try:
-                    logger.info(
-                        f"Error : {error_count}\nError : {e} \nUsers : {chat_id}"
-                    )
-                except:
-                    pass
+                errorno =+ f"{e}"
+                borg.send_message(loggy_grp, f"Error : {error_count}\nError : {errorno} \nUsers : {chat_id}")
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
@@ -99,6 +102,10 @@ async def _(event):
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
     await event.edit(
+        f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}"
+    )
+    await borg.send_message(
+        loggy_grp,
         f"BroadCast Success In : {total_count} \nFailed In : {total_errors} \nTotal Channel In DB : {total_chnnl}"
     )
 
@@ -128,6 +135,10 @@ async def _(event):
         except:
             pass
     await event.edit(
+        f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
+    )
+    await borg.send_message(
+        loggy_grp,
         f"Forward Success in {total_count} And Failed In {total_errors} And Total Channel In Db is {total_chnnl}"
     )
 
