@@ -15,8 +15,6 @@
 import io
 import os
 
-from telethon.tl.types import Channel
-
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     add_chnnl_in_db,
@@ -39,7 +37,7 @@ async def _(event):
             d.entity.id
             for d in await event.client.get_dialogs()
             if (d.is_group or d.is_channel)
-            ]
+        ]
         for i in addall:
             try:
                 if already_added(i.entity.id):
@@ -48,11 +46,11 @@ async def _(event):
                     add_chnnl_in_db(i.entity.id)
                     sed += 1
             except BaseException:
-                    pass
-                        
+                pass
+
         await event.edit(
-        f"Process Completed. Added {sed} Channel To List. Failed {oks}"
-         )
+            f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+        )
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
