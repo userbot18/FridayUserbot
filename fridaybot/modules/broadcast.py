@@ -30,6 +30,17 @@ loggy_grp = Config.PRIVATE_GROUP_ID
 @friday.on(friday_on_cmd(pattern="badd ?(.*)"))
 async def _(event):
     input_chnnl = event.pattern_match.group(1)
+    if input_chnnl == "all":
+        sedbruh = [
+            d.entity.id
+            for d in await event.client.get_dialogs()
+            if (d.is_channel)
+        ]
+        for addnub in sedbruh:
+            if already_added(addnub):
+                pass
+            else:
+                add_chnnl_in_db(addnub)
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
@@ -94,7 +105,7 @@ async def _(event):
                 total_count += 1
             except Exception as e:
                 total_errors += 1
-                errorno = +f"{e}"
+                errorno += f"{e}"
                 borg.send_message(
                     loggy_grp,
                     f"Error : {error_count}\nError : {errorno} \nUsers : {chat_id}",
@@ -103,7 +114,16 @@ async def _(event):
             os.remove(ok)
     elif hmm and hmm.text:
         for channelz in all_chnnl:
-            await borg.send_message(channelz.chat_id, hmm.text)
+            try:
+                await borg.send_message(channelz.chat_id, hmm.text)
+                total_count += 1
+            except Exception as e:
+                total_errors += 1
+                errorno += f"{e}"
+                borg.send_message(
+                    loggy_grp,
+                    f"Error : {error_count}\nError : {errorno} \nUsers : {chat_id}",
+                )
     elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
