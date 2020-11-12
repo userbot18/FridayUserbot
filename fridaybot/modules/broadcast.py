@@ -40,15 +40,15 @@ async def _(event):
             for d in await event.client.get_dialogs()
             if (d.is_group or d.is_channel)
             ]
-            for i in addall:
-                try:
-                    if already_added(i.entity.id):
-                        oks += 1
-                    else:
-                        add_chnnl_in_db(i.entity.id)
-                        sed += 1
-                    except BaseException:
-                        pass
+        for i in addall:
+            try:
+                if already_added(i.entity.id):
+                    oks += 1
+                else:
+                    add_chnnl_in_db(i.entity.id)
+                    sed += 1
+            except BaseException:
+                    pass
                         
                 await event.edit(
                         f"Process Completed. Added {sed} Channel To List. Failed {oks}"
