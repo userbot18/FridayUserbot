@@ -1,7 +1,7 @@
 import io
 
 from telethon.utils import pack_bot_file_id
-
+from fridaybot.utils import friday_on_cmd
 from fridaybot.Configs import Config
 from fridaybot.modules.sql_helper.broadcast_sql import (
     already_added,
