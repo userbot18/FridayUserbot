@@ -49,10 +49,10 @@ async def _(event):
                             sed += 1
             except BaseException:
                 pass
-            return await event.edit(
+        await event.edit(
                 f"Process Completed. Added {sed} Channel To List. Failed {oks}"
             )
-    if input_chnnl == "":
+    elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
@@ -74,7 +74,7 @@ async def _(event):
     if input_chnnl == "all":
         for channelz in all_chnnl:
             rm_channel(channelz.chat_id)
-        await event.edit("Fine. Cleared Channel Database")
+        await event.edit("Fine. Cleared All Channel Database")
         return
     if input_chnnl is "":
         if event.is_channel and event.is_group:
@@ -118,7 +118,7 @@ async def _(event):
             except Exception as e:
                 total_errors += 1
                 errorno += f"{e} \n"
-            await borg.send_message(
+        await borg.send_message(
                 loggy_grp,
                 f"Error : {total_errors}\nError : {errorno}",
             )
@@ -132,7 +132,7 @@ async def _(event):
             except Exception as e:
                 total_errors += 1
                 errorno += f"{e} \n"
-            await borg.send_message(
+        await borg.send_message(
                 loggy_grp,
                 f"Error : {total_errors}\nError : {errorno}",
             )
