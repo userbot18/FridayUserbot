@@ -50,8 +50,8 @@ async def _(event):
             except BaseException:
                 pass
         await event.edit(
-                f"Process Completed. Added {sed} Channel To List. Failed {oks}"
-            )
+            f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+        )
     elif input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
@@ -119,9 +119,9 @@ async def _(event):
                 total_errors += 1
                 errorno += f"{e} \n"
         await borg.send_message(
-                loggy_grp,
-                f"Error : {total_errors}\nError : {errorno}",
-            )
+            loggy_grp,
+            f"Error : {total_errors}\nError : {errorno}",
+        )
         if os.path.exists(ok):
             os.remove(ok)
     elif hmm and hmm.text:
@@ -133,9 +133,9 @@ async def _(event):
                 total_errors += 1
                 errorno += f"{e} \n"
         await borg.send_message(
-                loggy_grp,
-                f"Error : {total_errors}\nError : {errorno}",
-            )
+            loggy_grp,
+            f"Error : {total_errors}\nError : {errorno}",
+        )
     elif hmm.message.poll:
         await event.edit("Bruh, This Can't Be Broadcasted.")
         return
