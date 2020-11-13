@@ -49,10 +49,9 @@ async def _(event):
                             sed += 1
             except BaseException:
                 pass
-
-        await event.edit(
-            f"Process Completed. Added {sed} Channel To List. Failed {oks}"
-        )
+            return await event.edit(
+                f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+            )
     if input_chnnl == "":
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
