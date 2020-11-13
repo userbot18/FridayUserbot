@@ -38,6 +38,7 @@ async def _(event):
             for d in await event.client.get_dialogs()
             if (d.is_group or d.is_channel)
         ]
+        await event.edit("`Adding All Channel TO DB.")
         for i in addall:
             try:
                 if i.broadcast:
@@ -50,7 +51,7 @@ async def _(event):
             except BaseException:
                 pass
         await event.edit(
-            f"Process Completed. Added {sed} Channel To List. Failed {oks}"
+            f"Process Completed. Added {sed} Channel To List. Failed {oks} Due to already Added !"
         )
         return
     elif input_chnnl == "":
