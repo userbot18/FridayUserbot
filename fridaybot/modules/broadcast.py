@@ -59,9 +59,13 @@ async def _(event):
             await event.edit("Please Give Group / Channel ID")
             return
     if already_added(input_chnnl):
+        if input_chnnl == "all":
+            return
         await event.edit("This Channel Already Found in Database.")
         return
     if not already_added(input_chnnl):
+        if input_chnnl == "all":
+            return
         add_chnnl_in_db(input_chnnl)
         await event.edit(f"Fine. I have Added {input_chnnl} To DataBase.")
         await borg.send_message(loggy_grp, f"Added {input_chnnl} To DB")
