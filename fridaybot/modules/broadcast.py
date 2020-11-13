@@ -57,7 +57,7 @@ async def _(event):
         if event.is_channel and event.is_group:
             input_chnnl = event.chat_id
         else:
-            await event.edit("Please Give Group / Channel ID")
+            await event.edit("Please Give Group / Channel ID !")
             return
     if already_added(input_chnnl):
         await event.edit("This Channel Already Found in Database.")
